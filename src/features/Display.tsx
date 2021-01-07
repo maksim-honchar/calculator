@@ -6,7 +6,6 @@ interface IDisplay {
 }
 
 export const Display = (props: IDisplay) => {
-  console.log(`props.numbB.length = ${props.numB.length}`);
   return (
     <div style={{ border: "1px solid", height: "40px" }}>
       {props.numA.length === 0

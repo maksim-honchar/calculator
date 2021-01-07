@@ -7,6 +7,7 @@ interface IPad {
   setMathOp: (arg: string | null) => void;
   setEquals: (arg: boolean) => void;
   allClear: () => void;
+  setPercent: (arg: boolean) => void;
 }
 
 export const Pad = (props: IPad) => {
@@ -29,7 +30,9 @@ export const Pad = (props: IPad) => {
                 AC
               </Button>
               <Button variant="outlined">+/-</Button>
-              <Button variant="outlined">%</Button>
+              <Button onClick={() => props.setPercent(true)} variant="outlined">
+                %
+              </Button>
             </Grid>
           </Grid>
           <Grid item style={{ border: "1px solid green" }}>

@@ -1,6 +1,6 @@
 interface IDisplay {
-  numA: number[];
-  numB: number[];
+  numA: Array<number | string>;
+  numB: Array<number | string>;
   total: number;
   mathOp: string | null;
 }

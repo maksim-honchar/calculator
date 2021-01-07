@@ -4,14 +4,14 @@ import { Display } from "./features/Display";
 import { Pad } from "./features/Pad";
 
 export default function App() {
-  const [numA, setNumA] = useState<Array<number>>([]);
-  const [numB, setNumB] = useState<Array<number>>([]);
+  const [numA, setNumA] = useState<Array<number | string>>([]);
+  const [numB, setNumB] = useState<Array<number | string>>([]);
   const [mathOp, setMathOp] = useState<null | string>(null);
   const [equals, setEquals] = useState(false);
   const [percent, setPercent] = useState(false);
   const [total, setTotal] = useState(0);
 
-  const calc = (num: number) => {
+  const calc = (num: number | string) => {
     if (mathOp === null) {
       setNumA([...numA, num]);
     } else {

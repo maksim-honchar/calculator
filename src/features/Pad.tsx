@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 
 interface IPad {
-  calc: (num: number) => void;
+  calc: (num: number | string) => void;
   setMathOp: (arg: string | null) => void;
   setEquals: (arg: boolean) => void;
   allClear: () => void;
@@ -11,7 +11,7 @@ interface IPad {
 }
 
 export const Pad = (props: IPad) => {
-  const nums = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const numOutput = nums.map((number, index) => (
     <Grid item key={index}>
       <Button onClick={() => props.calc(number)} variant="outlined">
@@ -40,6 +40,18 @@ export const Pad = (props: IPad) => {
               {numOutput}
             </Grid>
           </Grid>
+        </Grid>
+        <Grid item>
+          <Button
+            style={{ width: "130px" }}
+            onClick={() => props.calc(0)}
+            variant="outlined"
+          >
+            0
+          </Button>
+          <Button onClick={() => props.calc(".")} variant="outlined">
+            .
+          </Button>
         </Grid>
       </Grid>
       <Grid item>

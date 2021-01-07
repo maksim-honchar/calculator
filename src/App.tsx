@@ -108,7 +108,75 @@ export default function App() {
 
   // console.log(` numA - ${numA}`);
   // console.log(` numB - ${numB}`);
-  console.log(percent);
+  // console.log(percent);
+
+  const keyPad = (event: KeyboardEvent) => {
+    switch (event.key) {
+      case "0":
+        calc(0);
+        break;
+      case "1":
+        calc(1);
+        break;
+      case "2":
+        calc(2);
+        break;
+      case "3":
+        calc(3);
+        break;
+      case "4":
+        calc(4);
+        break;
+      case "5":
+        calc(5);
+        break;
+      case "6":
+        calc(6);
+        break;
+      case "7":
+        calc(7);
+        break;
+      case "8":
+        calc(8);
+        break;
+      case "9":
+        calc(9);
+        break;
+      case "Escape":
+        allClear();
+        break;
+      case "/":
+        setMathOp("divided");
+        break;
+      case "*":
+        setMathOp("multiply");
+        break;
+      case "-":
+        numA.length === 0 || (numA.length > 0 && numB.length === 0)
+          ? calc("-")
+          : setMathOp("minus");
+        break;
+      case "+":
+        setMathOp("plus");
+        break;
+      case "Enter":
+        setEquals(true);
+        break;
+      case "%":
+        setPercent(true);
+        break;
+      case ".":
+        calc(".");
+        break;
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", keyPad);
+    return () => {
+      window.removeEventListener("keydown", keyPad);
+    };
+  }, [keyPad]);
 
   return (
     <Container

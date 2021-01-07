@@ -12,8 +12,8 @@ interface IPad {
 
 export const Pad = (props: IPad) => {
   const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  const numOutput = nums.map((number, index) => (
-    <Grid item key={index}>
+  const numOutput = nums.map((number) => (
+    <Grid item key={number}>
       <Button onClick={() => props.calc(number)} variant="outlined">
         {number}
       </Button>
@@ -29,7 +29,9 @@ export const Pad = (props: IPad) => {
               <Button onClick={props.allClear} variant="outlined">
                 AC
               </Button>
-              <Button variant="outlined">+/-</Button>
+              <Button onClick={() => props.calc("-")} variant="outlined">
+                +/-
+              </Button>
               <Button onClick={() => props.setPercent(true)} variant="outlined">
                 %
               </Button>

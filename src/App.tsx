@@ -12,9 +12,9 @@ export default function App() {
   const [total, setTotal] = useState(0);
 
   const calc = (num: number | string) => {
-    if (mathOp === null) {
+    if (mathOp === null && numA.length < 10) {
       setNumA([...numA, num]);
-    } else {
+    } else if (numB.length < 10) {
       setNumB([...numB, num]);
     }
   };
@@ -152,7 +152,9 @@ export default function App() {
         setMathOp("multiply");
         break;
       case "-":
-        numA.length === 0 || (numA.length > 0 && numB.length === 0)
+        numA.length === 0 ||
+        (mathOp === "multiply" && numB.length === 0) ||
+        (mathOp === "divided" && numB.length === 0)
           ? calc("-")
           : setMathOp("minus");
         break;

@@ -8,6 +8,7 @@ interface IPad {
   setEquals: (arg: boolean) => void;
   allClear: () => void;
   setPercent: (arg: boolean) => void;
+  setFillCell: (arg: string) => void;
 }
 
 export const Pad = (props: IPad) => {
@@ -37,6 +38,28 @@ export const Pad = (props: IPad) => {
               </Button>
             </Grid>
           </Grid>
+          <Grid container style={{ border: "1px solid orange" }}>
+            <Grid item>
+              <Button
+                onClick={() => props.setFillCell("mc")}
+                variant="outlined"
+              >
+                mc
+              </Button>
+              <Button
+                onClick={() => props.setFillCell("mr")}
+                variant="outlined"
+              >
+                mr
+              </Button>
+              <Button
+                onClick={() => props.setFillCell("m-")}
+                variant="outlined"
+              >
+                m-
+              </Button>
+            </Grid>
+          </Grid>
           <Grid item style={{ border: "1px solid green" }}>
             <Grid container wrap="wrap-reverse">
               {numOutput}
@@ -60,6 +83,9 @@ export const Pad = (props: IPad) => {
         <Grid container direction="column">
           <Button onClick={() => props.setMathOp("divided")} variant="outlined">
             /
+          </Button>
+          <Button onClick={() => props.setFillCell("m+")} variant="outlined">
+            m+
           </Button>
           <Button
             onClick={() => props.setMathOp("multiply")}

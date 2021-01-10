@@ -1,9 +1,21 @@
 import React, { useState, useEffect } from "react";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Display } from "./features/Display";
 import { Pad } from "./features/Pad";
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    wrapper: {
+      width: "400px",
+      marginTop: "20vh",
+    },
+  })
+);
+
 export default function App() {
+  const classes = useStyles();
+
   const [numA, setNumA] = useState<Array<number | string>>([]);
   const [numB, setNumB] = useState<Array<number | string>>([]);
   const [mathOp, setMathOp] = useState<null | string>(null);
@@ -138,9 +150,6 @@ export default function App() {
   function keyPad(event: KeyboardEvent) {
     if (event.key === "Enter") {
       setEquals(true);
-      console.log(
-        "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
-      );
     } else if (event.key === "/") {
       setMathOp("divided");
     } else if (event.key === "*") {
@@ -202,11 +211,7 @@ export default function App() {
   // console.log(`memCell: ${memCell}`);
 
   return (
-    <Container
-      maxWidth={false}
-      style={{ border: "1px solid red", width: "400px" }}
-    >
-      <h2>Calculator</h2>
+    <Container maxWidth={false} className={classes.wrapper}>
       <Display
         numA={numA}
         numB={numB}

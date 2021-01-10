@@ -21,7 +21,6 @@ export default function App() {
   const [mathOp, setMathOp] = useState<null | string>(null);
   const [equals, setEquals] = useState(false);
   const [percent, setPercent] = useState(false);
-  const [total, setTotal] = useState(0);
   const [fillCell, setFillCell] = useState<null | string>(null);
   const [memCell, setMemCell] = useState<Array<number | string>>([]);
 
@@ -58,17 +57,11 @@ export default function App() {
 
   useEffect(() => {
     if (mathOp === "plus" && numB.length > 0 && equals) {
-      setTotal(Number(numA.join("")) + Number(numB.join("")));
       setNumA([Number(numA.join("")) + Number(numB.join(""))]);
       setEquals(false);
       setMathOp(null);
       setNumB([]);
-      setTotal(0);
     } else if (mathOp === "plus" && numB.length > 0 && percent) {
-      setTotal(
-        (Number(numA.join("")) / 100) * Number(numB.join("")) +
-          Number(numA.join(""))
-      );
       setPercent(false);
       setNumA([
         (Number(numA.join("")) / 100) * Number(numB.join("")) +
@@ -76,22 +69,14 @@ export default function App() {
       ]);
       setMathOp(null);
       setNumB([]);
-      setTotal(0);
     }
 
     if (mathOp === "minus" && numB.length > 0 && equals) {
-      setTotal(Number(numA.join("")) - Number(numB.join("")));
-
       setNumA([Number(numA.join("")) - Number(numB.join(""))]);
       setMathOp(null);
       setEquals(false);
       setNumB([]);
-      setTotal(0);
     } else if (mathOp === "minus" && numB.length > 0 && percent) {
-      setTotal(
-        Number(numA.join("")) -
-          (Number(numA.join("")) / 100) * Number(numB.join(""))
-      );
       setPercent(false);
       setNumA([
         Number(numA.join("")) -
@@ -99,41 +84,30 @@ export default function App() {
       ]);
       setMathOp(null);
       setNumB([]);
-      setTotal(0);
     }
 
     if (mathOp === "multiply" && numB.length > 0 && equals) {
-      setTotal(Number(numA.join("")) * Number(numB.join("")));
-
       setNumA([Number(numA.join("")) * Number(numB.join(""))]);
       setEquals(false);
       setMathOp(null);
       setNumB([]);
-      setTotal(0);
     } else if (mathOp === "multiply" && numB.length > 0 && percent) {
-      setTotal((Number(numA.join("")) / 100) * Number(numB.join("")));
       setPercent(false);
       setNumA([(Number(numA.join("")) / 100) * Number(numB.join(""))]);
       setMathOp(null);
       setNumB([]);
-      setTotal(0);
     }
 
     if (mathOp === "divided" && numB.length > 0 && equals) {
-      setTotal(Number(numA.join("")) / Number(numB.join("")));
-
       setNumA([Number(numA.join("")) / Number(numB.join(""))]);
       setEquals(false);
       setMathOp(null);
       setNumB([]);
-      setTotal(0);
     } else if (mathOp === "divided" && numB.length > 0 && percent) {
-      setTotal((Number(numA.join("")) / 100 / Number(numB.join(""))) * 10000);
       setPercent(false);
       setNumA([(Number(numA.join("")) / 100 / Number(numB.join(""))) * 10000]);
       setMathOp(null);
       setNumB([]);
-      setTotal(0);
     }
   }, [numA, numB, mathOp, equals, percent]);
 
@@ -143,9 +117,10 @@ export default function App() {
     setMathOp(null);
     setEquals(false);
     setPercent(false);
-    setTotal(0);
     setFillCell(null);
   };
+
+  /* При управлении с клавиатуры появились странные баги, причину я найти к сожалению не смог.
 
   function keyPad(event: KeyboardEvent) {
     if (event.key === "Enter") {
@@ -199,26 +174,10 @@ export default function App() {
       window.removeEventListener("keydown", keyPad);
     };
   }, [keyPad]);
-
-  // console.log("start!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-  // console.log(` numA: ${numA}`);
-  // console.log(` numB: ${numB}`);
-  // console.log(`total: ${total}`);
-  // console.log(`mathOp: ${mathOp}`);
-  // console.log(`equals: ${equals}`);
-  // console.log(`percent: ${percent}`);
-  console.log(`fillCell: ${fillCell}`);
-  // console.log(`memCell: ${memCell}`);
-
+  */
   return (
     <Container maxWidth={false} className={classes.wrapper}>
-      <Display
-        numA={numA}
-        numB={numB}
-        total={total}
-        mathOp={mathOp}
-        memCell={memCell}
-      />
+      <Display numA={numA} numB={numB} mathOp={mathOp} memCell={memCell} />
       <Pad
         calc={calc}
         setMathOp={setMathOp}
@@ -226,6 +185,7 @@ export default function App() {
         allClear={allClear}
         setPercent={setPercent}
         setFillCell={setFillCell}
+        numA={numA}
       />
     </Container>
   );

@@ -1,21 +1,21 @@
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import { isNumericLiteral } from "typescript";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     wrapper: {
       padding: theme.spacing(1),
       paddingTop: 15,
-      // border: "1px solid pink",
-      width: 300,
+
+      width: 299,
       backgroundColor: "#212121",
     },
     firstBlock: {
       width: 213,
     },
     btn: {
-      // margin: theme.spacing(1),
       margin: 3,
       border: "1px solid #fafafa",
       color: "#fafafa",
@@ -41,6 +41,7 @@ interface IPad {
   allClear: () => void;
   setPercent: (arg: boolean) => void;
   setFillCell: (arg: string) => void;
+  numA: Array<number | string>;
 }
 
 export const Pad = (props: IPad) => {
@@ -53,18 +54,35 @@ export const Pad = (props: IPad) => {
         onClick={() => props.calc(number)}
         variant="outlined"
         className={classes.btn}
-        // style={{ backgroundColor: "black", color: "white" }}
       >
         {number}
       </Button>
     </Grid>
   ));
 
+  const mathOperation = (arg: string) => {
+    if (props.numA.length > 0) {
+      props.setMathOp(arg);
+    }
+  };
+
+  const equals = () => {
+    if (props.numA.length > 0) {
+      props.setEquals(true);
+    }
+  };
+
+  const percent = () => {
+    if (props.numA.length > 0) {
+      props.setPercent(true);
+    }
+  };
+
   return (
     <Grid container className={classes.wrapper}>
       <Grid item>
         <Grid container className={classes.firstBlock}>
-          <Grid container /* style={{ border: "1px solid orange" }} */>
+          <Grid container>
             <Grid item>
               <Button
                 onClick={props.allClear}
@@ -83,7 +101,7 @@ export const Pad = (props: IPad) => {
                 +/-
               </Button>
               <Button
-                onClick={() => props.setPercent(true)}
+                onClick={percent}
                 variant="outlined"
                 className={classes.btn}
                 style={{ backgroundColor: "#bdbdbd" }}
@@ -92,7 +110,7 @@ export const Pad = (props: IPad) => {
               </Button>
             </Grid>
           </Grid>
-          <Grid container /* style={{ border: "1px solid orange" }} */>
+          <Grid container>
             <Grid item>
               <Button
                 onClick={() => props.setFillCell("mc")}
@@ -117,19 +135,14 @@ export const Pad = (props: IPad) => {
               </Button>
             </Grid>
           </Grid>
-          <Grid item /* style={{ border: "1px solid green" }} */>
+          <Grid item>
             <Grid container wrap="wrap-reverse">
               {numOutput}
             </Grid>
           </Grid>
         </Grid>
-        <Grid
-          item
-          className={classes.bottomPart}
-          // style={{ paddingBottom: "15px" }}
-        >
+        <Grid item className={classes.bottomPart}>
           <Button
-            // style={{ width: "130px" }}
             onClick={() => props.calc(0)}
             variant="outlined"
             className={classes.btnZero}
@@ -148,7 +161,7 @@ export const Pad = (props: IPad) => {
       <Grid item>
         <Grid container direction="column">
           <Button
-            onClick={() => props.setMathOp("divided")}
+            onClick={() => mathOperation("divided")}
             variant="outlined"
             className={classes.btn}
             style={{ backgroundColor: "#ffa726" }}
@@ -164,7 +177,7 @@ export const Pad = (props: IPad) => {
             m+
           </Button>
           <Button
-            onClick={() => props.setMathOp("multiply")}
+            onClick={() => mathOperation("multiply")}
             variant="outlined"
             className={classes.btn}
             style={{ backgroundColor: "#ffa726" }}
@@ -172,7 +185,7 @@ export const Pad = (props: IPad) => {
             x
           </Button>
           <Button
-            onClick={() => props.setMathOp("minus")}
+            onClick={() => mathOperation("minus")}
             variant="outlined"
             className={classes.btn}
             style={{ backgroundColor: "#ffa726" }}
@@ -180,7 +193,7 @@ export const Pad = (props: IPad) => {
             -
           </Button>
           <Button
-            onClick={() => props.setMathOp("plus")}
+            onClick={() => mathOperation("plus")}
             variant="outlined"
             className={classes.btn}
             style={{ backgroundColor: "#ffa726" }}
@@ -188,7 +201,7 @@ export const Pad = (props: IPad) => {
             +
           </Button>
           <Button
-            onClick={() => props.setEquals(true)}
+            onClick={equals}
             variant="outlined"
             className={classes.btn}
             style={{ backgroundColor: "#ffa726" }}

@@ -44,6 +44,8 @@ interface IDisplay {
 export const Display = (props: IDisplay) => {
   const classes = useStyles();
 
+  console.log(Number(props.numA.join("")) % 1 === 0);
+
   return (
     <Grid container className={classes.wrapper}>
       <Grid item className={classes.topDisplay}>
@@ -62,7 +64,9 @@ export const Display = (props: IDisplay) => {
           props.total
         ) : props.numB.length === 0 ? (
           <Typography variant="h3" className={classes.tpg}>
-            {props.numA}
+            {Number(props.numA.join("")) % 1 === 0
+              ? props.numA
+              : Number(props.numA).toFixed(2)}
           </Typography>
         ) : (
           <Typography variant="h3" className={classes.tpg}>
